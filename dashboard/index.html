@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Bot Dashboard</title>
+  <meta name="description" content="Manage your Discord Music Bot audio library — upload, edit, and delete tracks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ─── Header ──────────────────────────────────────────────────── -->
+  <header id="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon">🎵</span>
+        <h1>Music Bot <span class="accent">Dashboard</span></h1>
+      </div>
+      <p class="tagline">Manage your personal audio library</p>
+    </div>
+  </header>
+
+  <!-- ─── Main Container ──────────────────────────────────────────── -->
+  <main id="app-main">
+    <!-- Stats Bar -->
+    <section id="stats-bar" class="glass-card">
+      <div class="stat">
+        <span class="stat-value" id="stat-total">0</span>
+        <span class="stat-label">Total Tracks</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-size">0 MB</span>
+        <span class="stat-label">Library Size</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-uploaders">0</span>
+        <span class="stat-label">Uploaders</span>
+      </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload-section" class="glass-card">
+      <h2>📤 Upload New Track</h2>
+      <form id="upload-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="upload-title">Title</label>
+            <input type="text" id="upload-title" placeholder="Custom title (optional)" />
+          </div>
+          <div class="form-group">
+            <label for="upload-file">Audio File</label>
+            <input type="file" id="upload-file" accept=".mp3,.wav,.ogg,.flac,.m4a,.webm" required />
+          </div>
+        </div>
+        <button type="submit" id="upload-btn" class="btn btn-primary">
+          <span class="btn-text">Upload</span>
+          <span class="btn-loader hidden">⏳</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Filter & Search -->
+    <section id="filter-bar" class="glass-card">
+      <input type="text" id="search-input" placeholder="🔍  Search by title, uploader, or ID…" />
+    </section>
+
+    <!-- File Table -->
+    <section id="library-section" class="glass-card">
+      <h2>📚 Audio Library</h2>
+      <div id="table-wrapper">
+        <table id="file-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Uploader</th>
+              <th>Size</th>
+              <th>Uploaded</th>
+              <th>ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="file-tbody">
+            <!-- Rows injected by JS -->
+          </tbody>
+        </table>
+        <p id="empty-msg" class="hidden">No tracks found. Upload one above! 🎶</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── Edit Modal ──────────────────────────────────────────────── -->
+  <div id="edit-modal" class="modal-overlay hidden">
+    <div class="modal glass-card">
+      <h2>✏️ Edit Track</h2>
+      <form id="edit-form">
+        <input type="hidden" id="edit-id" />
+        <div class="form-group">
+          <label for="edit-title">Title</label>
+          <input type="text" id="edit-title" required />
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" id="edit-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── Delete Confirm Modal ────────────────────────────────────── -->
+  <div id="delete-modal" class="modal-overlay hidden">
+    <div class="modal glass-card">
+      <h2>🗑️ Delete Track</h2>
+      <p>Are you sure you want to permanently delete <strong id="delete-name"></strong>?</p>
+      <div class="modal-actions">
+        <button class="btn btn-danger" id="delete-confirm">Delete</button>
+        <button class="btn btn-secondary" id="delete-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Toast Container ─────────────────────────────────────────── -->
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
