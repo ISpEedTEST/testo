@@ -1,7 +1,6 @@
 // ─── Entry Point ────────────────────────────────────────────────────
 // Boots the Discord bot and Express web dashboard in a single process.
-const dns = require('dns');
-dns.setDefaultResultOrder('ipv4first');
+
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
 import { readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -10,6 +9,9 @@ import express from 'express';
 import config from './config.js';
 import apiRouter from './routes/api.js';
 import { getAll } from './utils/audioStore.js';
+
+import dns from 'dns';
+dns.setDefaultResultOrder('ipv4first');
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = join(__dirname, '..');
