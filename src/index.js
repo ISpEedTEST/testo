@@ -1,6 +1,7 @@
 // ─── Entry Point ────────────────────────────────────────────────────
 // Boots the Discord bot and Express web dashboard in a single process.
-
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
 import { readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
